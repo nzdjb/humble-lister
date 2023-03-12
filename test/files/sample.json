@@ -1,18 +1,18 @@
 [
   {
     "abc": {
-      "tpkd_dict": {"all_tpks": [{}, {}]}
+      "tpkd_dict": {"all_tpks": [{"redeemed_key_val": "abc"}, {}]}
     },
     "def": {
-      "tpkd_dict": {"all_tpks": [{}, {}]}
+      "tpkd_dict": {"all_tpks": [{"key_type": "steam"}, {"key_type": "steam", "redeemed_key_val": "abc"}]}
     }
   },
   {
     "ghi": {
-      "tpkd_dict": {"all_tpks": [{}, {}]}
+      "tpkd_dict": {"all_tpks": [{"key_type": "steam"}, {"key_type": "steam"}]}
     },
     "jlm": {
-      "tpkd_dict": {"all_tpks": [{}, {}]}
+      "tpkd_dict": {"all_tpks": [{"key_type": "steam"}, {"key_type": "steam"}]}
     }
   }
 ]

@@ -2,18 +2,14 @@ import json
 from humble_lister.library import Library
 
 with open("library.json", encoding="UTF-8") as s:
-    library = Library(s.read())._library
+    library = Library(s.read())
 
 # for i in j:
 #     for _, k in i.items():
 #         print(k.keys())
+total = library._library
 
-
-unclaimed = [
-    x
-    for x in library
-    if x["key_type"] == "steam" and not x.get("redeemed_key_val", False)
-]
+unclaimed = library.unclaimed.steam._library
 
 # for bundle_id, bundle in library.items():
 #     print(bundle_id)
@@ -28,7 +24,7 @@ for title in unclaimed:
     redeemed = len(
         [
             x
-            for x in library
+            for x in total
             if x.get("steam_app_id", False) == title.get("steam_app_id")
             and x.get("redeemed_key_val")
         ]

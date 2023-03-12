@@ -3,6 +3,14 @@ from humble_lister.library import Library
 
 
 class TestLibrary(TestCase):
+    def test_create_empty_with_list(self) -> None:
+        library = Library([])
+        self.assertEqual(library._library, [])
+
+    def test_create_with_list_of_one(self) -> None:
+        library = Library(["one"])
+        self.assertEqual(library._library, ["one"])
+
     def test_parse_empty(self) -> None:
         library = Library("[]")
         self.assertEqual(library._library, [])
@@ -15,3 +23,36 @@ class TestLibrary(TestCase):
         with open("test/files/sample.json") as s:
             library = Library(s.read())
         self.assertEqual(len(library._library), 8)
+
+    def test_get_unclaimed(self) -> None:
+        with open("test/files/sample.json") as s:
+            library = Library(s.read())
+        unclaimed = library._get_unclaimed()
+        self.assertIsInstance(unclaimed, list)
+        self.assertEqual(len(unclaimed), 6)
+
+    def test_unclaimed(self) -> None:
+        with open("test/files/sample.json") as s:
+            library = Library(s.read())
+        unclaimed = library.unclaimed
+        self.assertIsInstance(unclaimed, Library)
+        self.assertEqual(len(unclaimed._library), 6)
+
+    def test_get_steam(self) -> None:
+        with open("test/files/sample.json") as s:
+            library = Library(s.read())
+        steam = library._get_steam()
+        self.assertIsInstance(steam, list)
+        self.assertEqual(len(steam), 6)
+
+    def test_steam(self) -> None:
+        with open("test/files/sample.json") as s:
+            library = Library(s.read())
+        steam = library.steam
+        self.assertIsInstance(steam, Library)
+        self.assertEqual(len(steam._library), 6)
+
+    def test_missing_attribute(self) -> None:
+        library = Library([])
+        with self.assertRaises(AttributeError):
+            library.bob
