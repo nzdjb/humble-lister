@@ -7,9 +7,8 @@ with open("library.json", encoding="UTF-8") as s:
 # for i in j:
 #     for _, k in i.items():
 #         print(k.keys())
-total = library._library
 
-unclaimed = library.unclaimed.steam._library
+unclaimed = library.unclaimed.steam
 
 # for bundle_id, bundle in library.items():
 #     print(bundle_id)
@@ -24,7 +23,7 @@ for title in unclaimed:
     redeemed = len(
         [
             x
-            for x in total
+            for x in library
             if x.get("steam_app_id", False) == title.get("steam_app_id")
             and x.get("redeemed_key_val")
         ]

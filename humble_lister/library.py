@@ -34,3 +34,9 @@ class Library:
 
     def _get_steam(self):
         return [item for item in self._library if item.get("key_type") == "steam"]
+
+    def __iter__(self):
+        return self._library.__iter__()
+
+    def __len__(self):
+        return self._library.__len__()

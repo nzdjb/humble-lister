@@ -56,3 +56,16 @@ class TestLibrary(TestCase):
         library = Library([])
         with self.assertRaises(AttributeError):
             library.bob
+
+    def test_len(self) -> None:
+        library = Library(["a", "b", "c"])
+        self.assertEqual(len(library), 3)
+
+    def test_iter(self) -> None:
+        library = Library(["a", "b", "c"])
+        it = iter(library)
+        self.assertEqual(next(it), "a")
+        self.assertEqual(next(it), "b")
+        self.assertEqual(next(it), "c")
+        with self.assertRaises(StopIteration):
+            next(it)
