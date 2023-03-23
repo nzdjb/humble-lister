@@ -11,6 +11,10 @@ class TestLibrary(TestCase):
         library = Library(["one"])
         self.assertEqual(library._library, ["one"])
 
+    def test_create_with_dict_of_one(self) -> None:
+        library = Library({"one": {"tpkd_dict": {"all_tpks": ["two"]}}})
+        self.assertEqual(library._library, ["two"])
+
     def test_parse_empty(self) -> None:
         library = Library("[]")
         self.assertEqual(library._library, [])

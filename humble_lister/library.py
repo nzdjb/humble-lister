@@ -3,14 +3,17 @@ from typing import Any
 
 
 class Library:
-    def __init__(self, library: str | list) -> None:
+    def __init__(self, library: str | list | dict) -> None:
         if isinstance(library, str):
-            self._library = self._parse_library_json(library)
+            library = loads(library)
+            self._library = self._parse_library(library)
+        elif isinstance(library, dict):
+            self._library = self._parse_library([library])
         else:
             self._library = library
 
-    def _parse_library_json(self, json_input: str):
-        purchases = [val for group in loads(json_input) for _, val in group.items()]
+    def _parse_library(self, input_list: list):
+        purchases = [val for group in input_list for _, val in group.items()]
         library = [
             item
             for group in purchases
