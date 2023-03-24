@@ -1,6 +1,6 @@
 from requests import Session
 from bs4 import BeautifulSoup
-from json import loads, dumps
+from json import loads
 
 
 class Retriever:
