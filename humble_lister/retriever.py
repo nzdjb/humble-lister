@@ -1,6 +1,8 @@
 from requests import Session
 from bs4 import BeautifulSoup
 from json import loads
+from multiprocessing.pool import ThreadPool
+from functools import reduce
 
 
 class Retriever:
@@ -11,6 +13,7 @@ class Retriever:
         if not session:
             session = Session()
         self._session = session
+        self._pool = ThreadPool(10)
 
     def _get_order_ids(self) -> list:
         response = self._session.get(self.BASE_URL + "home/library")
@@ -28,11 +31,14 @@ class Retriever:
 
     def get_data(self) -> dict:
         ids = self._get_order_ids()
-        data = {}
-        for group in self._group_list(ids):
-            request = "&gamekeys=".join(
-                [self.BASE_URL + "api/v1/orders?all_tpkds=true", *group]
-            )
-            text = self._session.get(request).text
-            data |= loads(text)
-        return data
+        requests = [
+            "&gamekeys=".join([self.BASE_URL + "api/v1/orders?all_tpkds=true", *group])
+            for group in self._group_list(ids)
+        ]
+        responses = self._pool.map(
+            lambda request: loads(self._session.get(request).text), requests
+        )
+        return reduce(lambda a, b: a | b, responses, {})
+
+    def __del__(self):
+        self._pool.close()
