@@ -6,7 +6,7 @@ authors = ["nzdjb <github@2a1b.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-requests = "^2.31.0"
+requests = "^2.32.0"
 beautifulsoup4 = "^4.11.2"
 
 [tool.poetry.dev-dependencies]
